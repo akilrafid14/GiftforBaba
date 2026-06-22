@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="en" class="h-full">
+<head>
+    <script src="/_sdk/telemetry_sdk.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Father's Day</title>
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+    <script src="/_sdk/element_sdk.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&amp;family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&amp;family=Great+Vibes&amp;display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg: #E3F2FD;
+            --card-bg: #FFFFFF;
+            --text: #1A365D;
+            --accent: #2C5282;
+            --accent2: #FFD700;
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            user-select: none;
+        }
+
+        body {
+            background: var(--bg);
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--text);
+            overflow: hidden;
+        }
+
+        .card-wrapper {
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            overflow-x: hidden;
+            background: linear-gradient(160deg, #E3F2FD 0%, #BBDEFB 40%, #E3F2FD 100%);
+            position: relative;
+        }
+
+        /* Floating stars for Father's Day background */
+        .floating-star {
+            position: fixed;
+            opacity: 0;
+            animation: floatStar 6s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes floatStar {
+            0% { transform: translateY(100%) scale(0.5) rotate(0deg); opacity: 0; }
+            20% { opacity: 0.6; }
+            80% { opacity: 0.4; }
+            100% { transform: translateY(-120%) scale(1.1) rotate(15deg); opacity: 0; }
+        }
+
+        /* Interactive Click Burst Elements */
+        .interactive-sparkle {
+            position: absolute;
+            pointer-events: none;
+            z-index: 999;
+            animation: explodeSparkle 0.8s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+        }
+
+        @keyframes explodeSparkle {
+            0% {
+                transform: translate(-50%, -50%) scale(1) translate(0, 0);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(0.3) translate(var(--tx), var(--ty)) rotate(var(--rot));
+                opacity: 0;
+            }
+        }
+
+        /* Letter styling & Dynamic Hover effects */
+        .letter-paper {
+            background: #FFFAF8;
+            border: 1px solid #B3D9FF;
+            box-shadow: 0 4px 30px rgba(44, 82, 130, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04);
+            position: relative;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+        }
+
+        .letter-paper:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(44, 82, 130, 0.16);
+        }
+
+        .letter-paper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent));
+        }
+
+        /* Elegant Hover Transition for Award */
+        .certificate-container {
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.5s ease;
+        }
+        
+        .certificate-container:hover {
+            transform: translateY(-8px) rotate(0.5deg);
+        }
+
+        /* Title with wavy entrance animations */
+        .title-text {
+            font-family: 'Great Vibes', cursive;
+            color: var(--accent);
+            animation: fadeSlideIn 1.2s ease-out both;
+        }
+
+        .letter-body {
+            animation: fadeSlideIn 1.5s ease-out 0.3s both;
+        }
+
+        @keyframes fadeSlideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .heart-pulse {
+            animation: heartPulse 1.5s ease-in-out infinite;
+            display: inline-block;
+        }
+
+        @keyframes heartPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+
+        /* Animated floating superhero cape */
+        @keyframes floatingCape {
+            0%, 100% { transform: translate(-50%, 0) scale(1); }
+            50% { transform: translate(-50%, 4px) scale(1.04) rotate(1deg); }
+        }
+        
+        .animated-cape {
+            animation: floatingCape 3.5s ease-in-out infinite;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js" type="text/javascript"></script>
+    <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <div class="card-wrapper" id="cardWrapper">
+        <!-- Floating Stars in Background -->
+        <div id="floatingStars"></div>
+
+        <div class="relative z-10 flex flex-col items-center px-4 py-8 sm:py-12 min-h-full">
+            <!-- Title with Superman Cape (Shifted downward & layered behind text so it never overlaps text awkwardly) -->
+            <div class="absolute top-[155px] sm:top-[165px] left-1/2 transform -translate-x-1/2 z-0 opacity-80 pointer-events-none transition-all duration-300 animated-cape" style="width: 220px; height: 160px;">
+                <svg viewBox="0 0 200 150" width="100%" height="100%">
+                    <path d="M 100 30 Q 80 60 60 100 Q 50 120 60 140 L 100 120 L 140 140 Q 150 120 140 100 Q 120 60 100 30" fill="#DC143C" opacity="0.95" />
+                    <ellipse cx="100" cy="35" rx="12" ry="15" fill="#FFD700" />
+                </svg>
+            </div>
+            
+            <h1 class="title-text text-5xl sm:text-6xl md:text-7xl text-center mb-1 relative z-10" id="cardTitle">Happy Father's Day</h1>
+            <div class="flex items-center gap-2 mb-8 relative z-10">
+                <span class="heart-pulse text-2xl">💙</span> 
+                <span style="color: var(--accent); font-family: 'Great Vibes', cursive; font-size: 1.4rem;">With love and admiration for Papa</span> 
+                <span class="heart-pulse text-2xl" style="animation-delay: 0.5s;">💙</span>
+            </div>
+
+            <!-- Letter & Family Picture Placement -->
+            <div class="letter-paper letter-body rounded-2xl p-6 sm:p-10 mx-auto w-full max-w-2xl mb-6 relative z-10 cursor-pointer">
+                <p class="mb-4" style="font-size: 1.2rem; line-height: 1.9;">Dear Papa,</p>
+                <p class="mb-4" style="font-size: 1.15rem; line-height: 1.9;">Happy Father's Day! I hope this year brings you an abundance of happiness, success, and joy. You are truly the bestest father I could ever ask for.</p>
+                <p class="mb-4" style="font-size: 1.15rem; line-height: 1.9;">Seeing how hard you work day and night for me, Yusra, and Mamoni inspires me more than words can say. You are incredibly brilliant and knowledgeable, and your wisdom makes me want to follow closely in your footsteps.</p>
+                <p class="mb-4" style="font-size: 1.15rem; line-height: 1.9;">Thank you for the countless sacrifices you make for our family, and for always being our rock whenever we need support. You are always there for us whenever we need you the most. You face every hurdle with such bravery and persistence, patiently pushing through for all of us.</p>
+                <p class="mb-4" style="font-size: 1.15rem; line-height: 1.9;">I pray that all your dreams are fulfilled and that you achieve immense success, In Sha Allah. I truly believe that all your hard work and dedication will pay off beautifully. Thank you for always taking such wonderful care of us. You are my superhero.</p>
+                <p class="mt-6" style="font-size: 1.15rem; line-height: 1.9;">With all my love, respect, and gratitude,</p>
+                <p class="mt-2" style="font-family: 'Great Vibes', cursive; font-size: 1.8rem; color: var(--accent);" id="senderSignature">Sincerely, Nihan</p>
+                
+                <!-- Family Photo beautifully arranged underneath the Signature -->
+                <div class="mt-8 flex justify-center">
+                    <div class="bg-white p-3 rounded-2xl shadow-xl border border-blue-100 max-w-md w-full transform hover:rotate-2 hover:scale-[1.03] transition-all duration-300">
+                        <img src="FamilyPic.jpg" alt="Family Photo" class="rounded-xl w-full h-auto object-cover border border-slate-100" onerror="this.onerror=null; this.src='https://placehold.co/600x400/E3F2FD/1A365D?text=Our+Beautiful+Family'">
+                        <p class="text-center mt-3 text-sm italic text-slate-500 font-sans">Our Family 💙</p>
+                    </div>
+                </div>
+
+                <div class="flex justify-center mt-6 gap-1">
+                    <span class="heart-pulse text-xl">💙</span> <span class="heart-pulse text-lg" style="animation-delay:0.3s">🦸</span> <span class="heart-pulse text-xl" style="animation-delay:0.6s">💙</span>
+                </div>
+            </div>
+
+            <p class="text-center mt-4 mb-8" style="color: var(--accent); font-family: 'Great Vibes', cursive; font-size: 1.3rem;">Made with 💙 for the best Papa in the world</p>
+
+            <!-- Award Certificate -->
+            <div class="w-full max-w-2xl mb-12 relative z-10 certificate-container cursor-pointer">
+                <svg viewBox="0 0 500 600" width="100%" height="auto" class="drop-shadow-lg">
+                    <defs>
+                        <!-- Circular ClipPath to crop Superhero.png into a medal shape -->
+                        <clipPath id="medalHeroClip">
+                            <circle cx="0" cy="0" r="32" />
+                        </clipPath>
+                    </defs>
+
+                    <!-- Certificate Background --> 
+                    <rect x="20" y="20" width="460" height="560" rx="10" fill="#FFFAF8" stroke="#2C5282" stroke-width="3" />
+                    <!-- Decorative Border --> 
+                    <rect x="35" y="35" width="430" height="530" rx="8" fill="none" stroke="#B3D9FF" stroke-width="2" stroke-dasharray="10,5" />
+                    
+                    <!-- Corner Stars -->
+                    <g transform="translate(60,60)"> <polygon points="0,-10 3,-3 10,-3 4,2 6,9 0,5 -6,9 -4,2 -10,-3 -3,-3" fill="#FFD700" /> </g>
+                    <g transform="translate(440,60)"> <polygon points="0,-10 3,-3 10,-3 4,2 6,9 0,5 -6,9 -4,2 -10,-3 -3,-3" fill="#FFD700" /> </g>
+                    <g transform="translate(60,520)"> <polygon points="0,-10 3,-3 10,-3 4,2 6,9 0,5 -6,9 -4,2 -10,-3 -3,-3" fill="#FFD700" /> </g>
+                    <g transform="translate(440,520)"> <polygon points="0,-10 3,-3 10,-3 4,2 6,9 0,5 -6,9 -4,2 -10,-3 -3,-3" fill="#FFD700" /> </g>
+                    
+                    <!-- Medal/Ribbon at top with Superhero.png perfectly centered in the medal -->
+                    <g transform="translate(250,85)">
+                        <!-- Ribbon Background Shapes --> 
+                        <path d="M-22,-30 L-12,-5 L-22,25 L0,12 L22,25 L12,-5 L22,-30 Z" fill="#DC143C" /> 
+                        <path d="M-12,-30 L-3,-5 L-12,25 L0,12 L12,25 L3,-5 L12,-30 Z" fill="#B22222" />
+                        
+                        <!-- Outer Elegant Medal Rim --> 
+                        <circle cx="0" cy="0" r="38" fill="#FFD700" stroke="var(--accent)" stroke-width="2" /> 
+                        <circle cx="0" cy="0" r="34" fill="#FFFFFF" />
+                        
+                        <!-- Clipped Superhero.png Photo (Shifted left to x="-42" to center alignment beautifully) -->
+                        <image href="Superhero.png" x="-42" y="-22" width="64" height="96" clip-path="url(#medalHeroClip)" preserveAspectRatio="xMidYMin slice" />
+                        
+                        <!-- Inner Gold Border Ring Overlay -->
+                        <circle cx="0" cy="0" r="32" fill="none" stroke="#FFD700" stroke-width="2" />
+                    </g>
+                    
+                    <!-- Main Award Title -->
+                    <text x="250" y="160" text-anchor="middle" font-family="'Playfair Display', serif" font-size="36" fill="var(--accent)" font-weight="bold" letter-spacing="3"> BEST PAPA </text>
+                    <text x="250" y="210" text-anchor="middle" font-family="'Playfair Display', serif" font-size="36" fill="var(--accent)" font-weight="bold" letter-spacing="3"> IN THE WORLD </text>
+                    <text x="250" y="240" text-anchor="middle" font-family="'Cormorant Garamond', serif" font-size="18" fill="var(--text)" letter-spacing="3" font-weight="600"> AWARD </text>
+                    
+                    <!-- Divider line --> 
+                    <line x1="100" y1="255" x2="400" y2="255" stroke="var(--accent2)" stroke-width="2" />
+                    <!-- Presented to --> 
+                    <text x="250" y="295" text-anchor="middle" font-family="'Cormorant Garamond', serif" font-size="16" fill="var(--text)" letter-spacing="1"> Presented to </text>
+                    <!-- Name --> 
+                    <text x="250" y="352" text-anchor="middle" font-family="'Great Vibes', cursive" font-size="52" fill="var(--accent)" font-weight="bold"> Papa </text>
+                    
+                    <!-- Reasons -->
+                    <text x="250" y="395" text-anchor="middle" font-family="'Cormorant Garamond', serif" font-size="14" fill="var(--text)" font-weight="600"> In recognition of unconditional love, </text>
+                    <text x="250" y="420" text-anchor="middle" font-family="'Cormorant Garamond', serif" font-size="14" fill="var(--text)" font-weight="600"> endless sacrifices, infinite wisdom, </text>
+                    <text x="250" y="445" text-anchor="middle" font-family="'Cormorant Garamond', serif" font-size="14" fill="var(--text)" font-weight="600"> and grace beyond measure </text>
+                    
+                    <!-- Star decoration -->
+                    <text x="160" y="475" font-size="20"> ⭐ </text>
+                    <text x="250" y="482" font-size="24"> ✨ </text>
+                    <text x="340" y="475" font-size="20"> ⭐ </text>
+                    
+                    <!-- Date line --> 
+                    <line x1="100" y1="500" x2="400" y2="500" stroke="var(--accent2)" stroke-width="1.5" /> 
+                    <text x="250" y="525" text-anchor="middle" font-family="'Cormorant Garamond', serif" font-size="14" fill="var(--text)"> This Year and Every Year to Come </text>
+                    
+                    <!-- Decorative flourishes -->
+                    <path d="M 80 550 Q 100 540 120 550" stroke="var(--accent2)" stroke-width="1.5" fill="none" opacity="0.6" />
+                    <path d="M 380 550 Q 400 540 420 550" stroke="var(--accent2)" stroke-width="1.5" fill="none" opacity="0.6" />
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Floating ambient background stars
+        const starsContainer = document.getElementById('floatingStars');
+        const starSymbols = ['⭐', '🌟', '✨', '💙'];
+        for (let i = 0; i < 15; i++) {
+            const star = document.createElement('div');
+            star.className = 'floating-star';
+            star.textContent = starSymbols[i % starSymbols.length];
+            star.style.left = Math.random() * 100 + '%';
+            star.style.fontSize = (14 + Math.random() * 16) + 'px';
+            star.style.animationDelay = (Math.random() * 6) + 's';
+            star.style.animationDuration = (5 + Math.random() * 4) + 's';
+            starsContainer.appendChild(star);
+        }
+
+        // Real-time audio context synthesiser for sweet chime notes on click
+        let audioCtx;
+        function playSparkleSound() {
+            try {
+                if (!audioCtx) {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                const now = audioCtx.currentTime;
+                
+                // Arpeggio notes in pentatonic scale for a sweet magical sparkle sound
+                const freqs = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+                freqs.forEach((f, i) => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(f, now + (i * 0.06));
+                    
+                    gain.gain.setValueAtTime(0.12, now + (i * 0.06));
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + (i * 0.06) + 0.35);
+                    
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    
+                    osc.start(now + (i * 0.06));
+                    osc.stop(now + (i * 0.06) + 0.4);
+                });
+            } catch (e) {
+                console.log("Audio not allowed yet by browser interaction policy.");
+            }
+        }
+
+        // Interactive Sparkle Exploding System
+        function triggerSparkles(x, y) {
+            playSparkleSound();
+            const colors = ['#2C5282', '#FFD700', '#FFED4E', '#DC143C', '#63B3ED', '#3182CE'];
+            const glyphs = ['⭐', '✨', '💙', '🌟', '🌸'];
+            const count = 10;
+            
+            for (let i = 0; i < count; i++) {
+                const el = document.createElement('div');
+                el.className = 'interactive-sparkle';
+                el.textContent = glyphs[Math.floor(Math.random() * glyphs.length)];
+                el.style.fontSize = (12 + Math.random() * 16) + 'px';
+                el.style.left = x + 'px';
+                el.style.top = y + 'px';
+                el.style.color = colors[Math.floor(Math.random() * colors.length)];
+                
+                // Set custom coordinate explosion destinations inside CSS variables
+                const angle = Math.random() * Math.PI * 2;
+                const distance = 40 + Math.random() * 100;
+                const tx = Math.cos(angle) * distance;
+                const ty = Math.sin(angle) * distance;
+                const rot = (Math.random() * 360) + 'deg';
+                
+                el.style.setProperty('--tx', `${tx}px`);
+                el.style.setProperty('--ty', `${ty}px`);
+                el.style.setProperty('--rot', rot);
+                
+                document.body.appendChild(el);
+                
+                // Cleanup sparkle after animation finished
+                setTimeout(() => {
+                    el.remove();
+                }, 800);
+            }
+        }
+
+        // Wire tap and click interactions
+        const wrapper = document.getElementById('cardWrapper');
+        wrapper.addEventListener('click', (e) => {
+            // Avoid creating particles if clicked on highly nested text controls, but allow generally
+            triggerSparkles(e.clientX, e.clientY);
+        });
+
+        // Element SDK setup
+        const defaultConfig = {
+            card_title: 'Happy Father\'s Day',
+            sender_name: 'Nihan',
+            background_color: '#E3F2FD',
+            card_bg_color: '#FFFAF8',
+            text_color: '#1A365D',
+            accent_color: '#2C5282',
+            accent2_color: '#FFD700',
+            font_family: 'Cormorant Garamond',
+            font_size: 18
+        };
+
+        function applyConfig(config) {
+            const c = { ...defaultConfig, ...config };
+            document.getElementById('cardTitle').textContent = c.card_title;
+            document.getElementById('senderSignature').textContent = 'Sincerely yours, ' + c.sender_name;
+            document.documentElement.style.setProperty('--bg', c.background_color);
+            document.documentElement.style.setProperty('--card-bg', c.card_bg_color);
+            document.documentElement.style.setProperty('--text', c.text_color);
+            document.documentElement.style.setProperty('--accent', c.accent_color);
+            document.documentElement.style.setProperty('--accent2', c.accent2_color);
+            document.body.style.color = c.text_color;
+            document.getElementById('cardTitle').style.color = c.accent_color;
+            document.getElementById('senderSignature').style.color = c.accent_color;
+            const font = c.font_family + ', serif';
+            document.body.style.fontFamily = font;
+            const base = c.font_size;
+            document.querySelectorAll('.letter-paper p').forEach(p => { if (!p.id) p.style.fontSize = base + 'px'; });
+            document.getElementById('cardTitle').style.fontSize = (base * 3.2) + 'px';
+        }
+
+        window.elementSdk.init({
+            defaultConfig,
+            onConfigChange: async (config) => applyConfig(config),
+            mapToCapabilities: (config) => ({
+                recolorables: [
+                    { get: () => config.background_color || defaultConfig.background_color, set: v => { config.background_color = v; window.elementSdk.setConfig({ background_color: v }); } },
+                    { get: () => config.card_bg_color || defaultConfig.card_bg_color, set: v => { config.card_bg_color = v; window.elementSdk.setConfig({ card_bg_color: v }); } },
+                    { get: () => config.text_color || defaultConfig.text_color, set: v => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }); } },
+                    { get: () => config.accent_color || defaultConfig.accent_color, set: v => { config.accent_color = v; window.elementSdk.setConfig({ accent_color: v }); } },
+                    { get: () => config.accent2_color || defaultConfig.accent2_color, set: v => { config.accent2_color = v; window.elementSdk.setConfig({ accent2_color: v }); } }
+                ],
+                borderables: [],
+                fontEditable: { get: () => config.font_family || defaultConfig.font_family, set: v => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }); } },
+                fontSizeable: { get: () => config.font_size || defaultConfig.font_size, set: v => { config.font_size = v; window.elementSdk.setConfig({ font_size: v }); } }
+            }),
+            mapToEditPanelValues: (config) => new Map([
+                ['card_title', config.card_title || defaultConfig.card_title],
+                ['sender_name', config.sender_name || defaultConfig.sender_name]
+            ])
+        });
+    </script>
+</body>
+</html>
